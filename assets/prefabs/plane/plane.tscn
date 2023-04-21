@@ -165,14 +165,16 @@ animations = [{
 collision_layer = 0
 collision_mask = 0
 script = ExtResource("1_yuxeo")
-speed = 500.0
+speed = 150.0
 turnRate = 0.03
-spriteRenderer = NodePath("PlaneSprite")
-bulletSpawnPoint = NodePath("BulletSpawnPoint")
+spriteRenderer = NodePath("Plane/PlaneSprite")
+bulletSpawnPoint = NodePath("Plane/BulletSpawnPoint")
 shootCooldown = NodePath("ShootCooldown")
 bulletPrefab = ExtResource("2_1ugbj")
-AngleUpdateThreshold = 2.0
-OutlineColors = Array[Color]([Color(0, 1, 0, 1), Color(1, 0, 1, 1), Color(1, 0, 0, 1), Color(1, 1, 0, 1)])
+AngleUpdateThreshold = 1.0
+PositionUpdateThreshold = 1.0
+EnemyColor = Color(0.917647, 0, 0, 1)
+AllyColor = Color(0, 1, 0, 1)
 
 [node name="VisibleOnScreenNotifier2D" type="VisibleOnScreenNotifier2D" parent="."]
 
@@ -180,20 +182,27 @@ OutlineColors = Array[Color]([Color(0, 1, 0, 1), Color(1, 0, 1, 1), Color(1, 0, 
 position = Vector2(5, 0)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+position = Vector2(-4, 0)
 shape = SubResource("CircleShape2D_umi8w")
-
-[node name="PlaneSprite" type="AnimatedSprite2D" parent="."]
-material = SubResource("ShaderMaterial_dypuu")
-rotation = 1.5708
-scale = Vector2(2, 2)
-sprite_frames = SubResource("SpriteFrames_ovbwj")
-
-[node name="BulletSpawnPoint" type="Node2D" parent="."]
-position = Vector2(25, 0)
 
 [node name="ShootCooldown" type="Timer" parent="."]
 wait_time = 0.1
 
+[node name="Plane" type="Node2D" parent="."]
+rotation = 3.14159
+scale = Vector2(2, 2)
+
+[node name="PlaneSprite" type="AnimatedSprite2D" parent="Plane"]
+material = SubResource("ShaderMaterial_dypuu")
+rotation = 1.57079
+sprite_frames = SubResource("SpriteFrames_ovbwj")
+
+[node name="BulletSpawnPoint" type="Node2D" parent="Plane"]
+position = Vector2(9.5, -8.30516e-07)
+rotation = 3.14159
+scale = Vector2(0.5, 0.5)
+
 [connection signal="screen_entered" from="VisibleOnScreenNotifier2D" to="." method="_on_visible_on_screen_notifier_2d_screen_entered"]
 [connection signal="screen_exited" from="VisibleOnScreenNotifier2D" to="." method="_on_visible_on_screen_notifier_2d_screen_exited"]
+[connection signal="area_entered" from="Area2D" to="." method="_on_area_2d_area_entered"]
 [connection signal="timeout" from="ShootCooldown" to="." method="_on_shoot_cooldown_timeout"]

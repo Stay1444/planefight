@@ -15,12 +15,6 @@ func _ready():
 	GameUI.hide()
 	MenuUI.show()
 
-
-# Called every frame. 'delta' is the elapsed time since the previous frame.
-func _process(delta):
-	pass
-
-
 func _on_play_entered_game(game: PlaneGame):
 	MenuUI.hide()
 	GameUI.show()

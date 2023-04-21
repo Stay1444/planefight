@@ -12,6 +12,7 @@ var LastPositionUpdate: Vector2;
 var parentBody: Node2D
 var shooterId: int;
 var bulletId: int = 0;
+
 const PlaneController = preload("res://assets/prefabs/plane/PlaneController.gd")
 
 var gameNode: Node2D;

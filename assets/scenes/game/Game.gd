@@ -10,6 +10,23 @@ var respawnManager: RespawnManager;
 
 func setup(game: PlaneGame):
 	Game = game
+
+func net_log(message: String):
+	assert(Game != null)
+	assert(multiplayer != null)
+
+	var localPlayer = Game.getLocalPlayer();
+
+	var type = "CLIENT";
+
+	if multiplayer.is_server():
+		type = "SERVER";
+
+	var prefix = "[%s %s %s]: " % [type, localPlayer.Id, localPlayer.Nickname]
+
+	print("%s %s" % [prefix, message]);
+
+
 func getPlaneController(playerId: int) -> PlaneController:
 	for child in $Planes.get_children():
 		if child.name == str(playerId):
@@ -25,6 +42,7 @@ func createPlaneController(ownerId: int, planeId: int, planePosition: Vector2) -
 	instance.planeId = planeId;
 	instance.ownerId = ownerId;
 	instance.name = str(ownerId)
+	instance.gameNode = self
 	print_debug("Created plane controller %s" % instance.name)
 	instance.position = planePosition;
 	instance.isLocal = ownerId == Game.LocalId;
@@ -151,9 +169,7 @@ func _rpc_plane_killed(killerId: int, victimId: int):
 	else:
 		Game.on_remoteplayer_died.emit(victim)
 
-	var explosionParticles = PlaneExplosionParticles.instantiate() as CPUParticles2D;
-	explosionParticles.global_position = victimController.global_position
-	add_child(explosionParticles)
+	rpc("_rpc_plane_explode", victimController.global_position)
 
 	if multiplayer.is_server():
 		respawnManager.add(victimId)
@@ -161,6 +177,22 @@ func _rpc_plane_killed(killerId: int, victimId: int):
 		victim.DeathCount += 1
 		rpc("_rpc_player_stats_updated", killerId, killer.KillCount, killer.DeathCount)
 		rpc("_rpc_player_stats_updated", victimId, victim.KillCount, victim.DeathCount)
+
+@rpc("authority", "call_local")
+func _rpc_plane_died(planeId: int):
+	if multiplayer.is_server():
+		respawnManager.add(planeId)
+
+	if planeId == Game.LocalId:
+		Game.on_localplayer_died.emit()
+	else:
+		Game.on_remoteplayer_died.emit(Game.getPlayer(planeId))
+	
+@rpc("authority", "call_local")
+func _rpc_plane_explode(explosionPosition: Vector2):
+	var explosionParticles = PlaneExplosionParticles.instantiate() as CPUParticles2D;
+	explosionParticles.global_position = explosionPosition
+	add_child(explosionParticles)
 
 @rpc("authority", "call_local")
 func _rpc_player_stats_updated(playerId: int, killCount: int, deathCount: int) -> void:

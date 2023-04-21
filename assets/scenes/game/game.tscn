@@ -51,3 +51,13 @@ position = Vector2(-594, 644)
 
 [node name="Node2D10" type="Node2D" parent="SpawnPoints"]
 position = Vector2(-624, 8)
+
+[node name="RichTextLabel" type="RichTextLabel" parent="."]
+offset_left = 256.0
+offset_top = 118.0
+offset_right = 1180.0
+offset_bottom = 274.0
+theme_override_colors/default_color = Color(0, 0, 0, 1)
+text = "1. Ideas velocidad
+	- Frenar con click derecho
+    - Una barra de velocidad que puedas modificar (S/W?)"

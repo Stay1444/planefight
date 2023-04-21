@@ -20,19 +20,21 @@ var bulletsShot = 0;
 var lastSentRotation: float;
 var lastSentPosition: Vector2;
 var insideScreen: bool = true;
+var gameNode: Node2D;
+@export var EnemyColor: Color;
+@export var AllyColor: Color;
 
-@export var OutlineColors: Array[Color];
+const PlaneController = preload("res://assets/prefabs/plane/PlaneController.gd")
 
 func getRandomPlaneId() -> int:
 	return randi() % spriteRenderer.sprite_frames.get_frame_count("default");
 func _ready():
-	$PlaneSprite.material = $PlaneSprite.material.duplicate()
+	$Plane/PlaneSprite.material = $Plane/PlaneSprite.material.duplicate()
 	if isLocal:
-		$PlaneSprite.material.set("shader_param/line_thickness", 1)
-		$PlaneSprite.material.set("shader_param/line_color", OutlineColors.pick_random())
+		$Plane/PlaneSprite.material.set("shader_param/line_color", AllyColor)
 	else:
-		$PlaneSprite.material.set("shader_param/line_thickness", 0)
-	
+		$Plane/PlaneSprite.material.set("shader_param/line_color", EnemyColor)
+
 	if planeId == -1:
 		planeId = getRandomPlaneId()
 	
@@ -43,7 +45,7 @@ func shoot() -> void:
 	shootCooldown.start(0)
 	var instance := bulletPrefab.instantiate();
 	instance.Speed = instance.Speed + speed
-	instance.rotation_degrees = rotation_degrees
+	instance.rotation_degrees = $Plane.rotation_degrees
 	instance.parentBody = self
 	instance.shooterId = ownerId
 	instance.name = "%s-bullet-%s" % [ownerId, bulletsShot]
@@ -59,9 +61,9 @@ func _physics_process(_delta):
 	if (isLocal):
 		rotate_plane()
 
-		if abs(rotation_degrees - lastSentRotation) > AngleUpdateThreshold:
-			rpc("_rpc_plane_update_rotation", rotation_degrees)
-			lastSentRotation = rotation_degrees;
+		if abs($Plane.rotation_degrees - lastSentRotation) > AngleUpdateThreshold:
+			rpc("_rpc_plane_update_rotation", $Plane.rotation_degrees)
+			lastSentRotation = $Plane.rotation_degrees;
 
 		if position.distance_to(lastSentPosition) > PositionUpdateThreshold:
 			rpc("_rpc_plane_update_position", position)
@@ -79,10 +81,10 @@ func rotate_plane():
 		lerpTarget = get_viewport_rect().get_center();
 
 	if !Input.is_action_pressed("Aim"):
-		self.rotation = lerp_angle(self.rotation, (lerpTarget - self.global_position).normalized().angle(), turnRate)
+		$Plane.rotation = lerp_angle($Plane.rotation, (lerpTarget - $Plane.global_position).normalized().angle(), turnRate)
 
 func move_plane():
-	velocity = transform.x * speed
+	velocity = $Plane.transform.x * speed
 	move_and_slide()
 	
 func handle_shoot():
@@ -97,7 +99,7 @@ func _on_shoot_cooldown_timeout():
 func _rpc_plane_update_rotation(rangle: float) -> void:
 	var senderId = multiplayer.get_remote_sender_id();
 	if senderId != ownerId: return
-	rotation_degrees = rangle
+	$Plane.rotation_degrees = rangle
 
 @rpc("any_peer", "unreliable")
 func _rpc_plane_update_position(pos: Vector2) -> void:
@@ -116,3 +118,11 @@ func _on_visible_on_screen_notifier_2d_screen_entered():
 
 func _on_visible_on_screen_notifier_2d_screen_exited():
 	insideScreen = false
+
+
+func _on_area_2d_area_entered(area:Area2D):
+	if area.get_parent() is PlaneController and area.get_parent() != self and multiplayer.is_server():
+		gameNode.rpc("_rpc_plane_explode", self.global_position)
+		gameNode.rpc("_rpc_plane_explode", area.get_parent().global_position)
+		gameNode.rpc("_rpc_plane_died", self.ownerId)
+		gameNode.rpc("_rpc_plane_died", (area.get_parent() as PlaneController).ownerId)

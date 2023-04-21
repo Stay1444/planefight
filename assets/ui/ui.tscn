@@ -1,4 +1,4 @@
-[gd_scene load_steps=8 format=3 uid="uid://dr8nthvlkrpsa"]
+[gd_scene load_steps=9 format=3 uid="uid://dr8nthvlkrpsa"]
 
 [ext_resource type="Script" path="res://assets/ui/UIManager.gd" id="1_ux0db"]
 [ext_resource type="Script" path="res://assets/ui/GameUI.gd" id="2_uwyhy"]
@@ -7,6 +7,7 @@
 [ext_resource type="PackedScene" uid="uid://b05xdwgj1d6lh" path="res://assets/ui/kill_feed/kill_feed.tscn" id="5_3gbn3"]
 [ext_resource type="PackedScene" uid="uid://cn7derarcma4k" path="res://assets/ui/score_board/score_board.tscn" id="6_n0vx3"]
 [ext_resource type="Script" path="res://assets/ui/MenuUI.gd" id="6_yaouq"]
+[ext_resource type="Texture2D" uid="uid://dqi1sagfkmn6l" path="res://assets/icons/bullets.png" id="8_h5j7j"]
 
 [node name="UI" type="CanvasLayer" node_paths=PackedStringArray("GameUI", "MenuUI")]
 process_mode = 3
@@ -27,7 +28,38 @@ visible = false
 
 [node name="ScoreBoard" parent="GameUI" instance=ExtResource("6_n0vx3")]
 
+[node name="SelectedWeapon" type="Control" parent="GameUI"]
+visible = false
+layout_mode = 3
+anchors_preset = 0
+offset_left = 16.0
+offset_top = 600.0
+offset_right = 272.0
+offset_bottom = 648.0
+
+[node name="HBoxContainer" type="HBoxContainer" parent="GameUI/SelectedWeapon"]
+custom_minimum_size = Vector2(200, 0)
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="HBoxContainer" type="HBoxContainer" parent="GameUI/SelectedWeapon/HBoxContainer"]
+clip_contents = true
+custom_minimum_size = Vector2(0, 50)
+layout_mode = 2
+
+[node name="Control2" type="CenterContainer" parent="GameUI/SelectedWeapon/HBoxContainer/HBoxContainer"]
+custom_minimum_size = Vector2(25, 50)
+layout_mode = 2
+
+[node name="TextureRect" type="TextureRect" parent="GameUI/SelectedWeapon/HBoxContainer/HBoxContainer/Control2"]
+layout_mode = 2
+texture = ExtResource("8_h5j7j")
+expand_mode = 3
+stretch_mode = 3
+
 [node name="MenuUI" type="CanvasLayer" parent="." node_paths=PackedStringArray("IPBox", "NicknameBox")]
+visible = false
 script = ExtResource("6_yaouq")
 IPBox = NodePath("CenterContainer/Background/IPBox")
 NicknameBox = NodePath("CenterContainer/Background/NicknameBox")

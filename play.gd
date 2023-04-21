@@ -88,16 +88,9 @@ func _on_menu_ui_on_menu_join_game_requested(address: IPAddress, nickname: Strin
 	var localPlayer := Player.new(peer.get_unique_id(), false, nickname)
 	game.Players.append(localPlayer)
 
-	gameNode = GameScenePrefab.instantiate() as gameType
-	gameNode.setup(game)
-	
-	add_child(gameNode)
-
-	entered_game.emit(game)
-
 	multiplayer.connected_to_server.connect(_on_peer_connected_successfully)
-
-	get_tree().paused = false
+	multiplayer.server_disconnected.connect(_on_server_closed_connection)
+	multiplayer.connection_failed.connect(_on_server_connection_failed)
 
 func _on_peer_connected_to_server(id: int):
 	if !multiplayer.is_server():
@@ -114,8 +107,32 @@ func _on_peer_disconnected_from_server(id: int):
 	rpc("_rpc_unregister_player", id) # This should also call the local _rpc_unregister_player function
 
 func _on_peer_connected_successfully():
-	net_log("Connected to server")
+	gameNode = GameScenePrefab.instantiate() as gameType
+	gameNode.setup(game)
+	
+	add_child(gameNode)
+
+	entered_game.emit(game)
+
+	get_tree().paused = false
+	
 	rpc("_rpc_player_ready", game.getLocalPlayer().Nickname)
+
+func _on_server_closed_connection():
+	multiplayer.multiplayer_peer = null
+	exited_game.emit(game)
+	gameNode.queue_free()
+	game = null
+	get_tree().paused = true
+	print_debug("Connection to server failed")
+
+func _on_server_connection_failed():
+	multiplayer.multiplayer_peer = null
+	exited_game.emit(game)
+	gameNode.queue_free()
+	game = null
+	get_tree().paused = true
+	print_debug("Connection to server failed")
 
 @rpc("any_peer")
 func _rpc_player_ready(nickname: String):
