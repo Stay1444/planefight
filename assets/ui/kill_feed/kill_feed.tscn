@@ -1,0 +1,20 @@
+[gd_scene load_steps=5 format=3 uid="uid://b05xdwgj1d6lh"]
+
+[ext_resource type="Script" path="res://assets/ui/kill_feed/kill_feed.gd" id="1_p5dki"]
+[ext_resource type="PackedScene" uid="uid://bbxdul3q7tbkr" path="res://assets/ui/kill_event/kill_event.tscn" id="2_pv6av"]
+[ext_resource type="PackedScene" uid="uid://b01s5jtbc1l74" path="res://assets/ui/message_event/message_event.tscn" id="3_cjays"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_hod1l"]
+
+[node name="KillFeed" type="PanelContainer"]
+offset_left = 16.0
+offset_top = 16.0
+offset_right = 248.0
+offset_bottom = 308.0
+theme_override_styles/panel = SubResource("StyleBoxEmpty_hod1l")
+script = ExtResource("1_p5dki")
+KillMessagePrefab = ExtResource("2_pv6av")
+TextMessagePrefab = ExtResource("3_cjays")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="."]
+layout_mode = 2

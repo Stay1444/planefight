@@ -1,0 +1,78 @@
+[gd_scene load_steps=8 format=3 uid="uid://dr8nthvlkrpsa"]
+
+[ext_resource type="Script" path="res://assets/ui/UIManager.gd" id="1_ux0db"]
+[ext_resource type="Script" path="res://assets/ui/GameUI.gd" id="2_uwyhy"]
+[ext_resource type="PackedScene" uid="uid://dj4a680stkctq" path="res://assets/ui/health_bar/health_bar.tscn" id="3_nb2d8"]
+[ext_resource type="PackedScene" uid="uid://c7yl5l1gm37bi" path="res://assets/ui/gun_heat/gun_heat.tscn" id="4_sxvvv"]
+[ext_resource type="PackedScene" uid="uid://b05xdwgj1d6lh" path="res://assets/ui/kill_feed/kill_feed.tscn" id="5_3gbn3"]
+[ext_resource type="PackedScene" uid="uid://cn7derarcma4k" path="res://assets/ui/score_board/score_board.tscn" id="6_n0vx3"]
+[ext_resource type="Script" path="res://assets/ui/MenuUI.gd" id="6_yaouq"]
+
+[node name="UI" type="CanvasLayer" node_paths=PackedStringArray("GameUI", "MenuUI")]
+process_mode = 3
+script = ExtResource("1_ux0db")
+GameUI = NodePath("GameUI")
+MenuUI = NodePath("MenuUI")
+
+[node name="GameUI" type="CanvasLayer" parent="."]
+process_mode = 1
+script = ExtResource("2_uwyhy")
+
+[node name="HealthBar" parent="GameUI" groups=["GameControls"] instance=ExtResource("3_nb2d8")]
+
+[node name="GunHeat" parent="GameUI" groups=["GameControls"] instance=ExtResource("4_sxvvv")]
+visible = false
+
+[node name="KillFeed" parent="GameUI" groups=["GameControls"] instance=ExtResource("5_3gbn3")]
+
+[node name="ScoreBoard" parent="GameUI" instance=ExtResource("6_n0vx3")]
+
+[node name="MenuUI" type="CanvasLayer" parent="." node_paths=PackedStringArray("IPBox", "NicknameBox")]
+script = ExtResource("6_yaouq")
+IPBox = NodePath("CenterContainer/Background/IPBox")
+NicknameBox = NodePath("CenterContainer/Background/NicknameBox")
+
+[node name="CenterContainer" type="CenterContainer" parent="MenuUI"]
+offset_right = 1267.0
+offset_bottom = 713.0
+
+[node name="Background" type="Panel" parent="MenuUI/CenterContainer"]
+custom_minimum_size = Vector2(400, 200)
+layout_mode = 2
+
+[node name="HostButton" type="Button" parent="MenuUI/CenterContainer/Background"]
+layout_mode = 2
+offset_left = 31.0
+offset_top = 144.0
+offset_right = 82.0
+offset_bottom = 175.0
+text = "HOST"
+
+[node name="JoinButton" type="Button" parent="MenuUI/CenterContainer/Background"]
+layout_mode = 0
+offset_left = 315.0
+offset_top = 146.0
+offset_right = 366.0
+offset_bottom = 177.0
+text = "JOIN
+"
+
+[node name="IPBox" type="TextEdit" parent="MenuUI/CenterContainer/Background"]
+layout_mode = 0
+offset_left = 15.0
+offset_top = 16.0
+offset_right = 383.0
+offset_bottom = 52.0
+text = "127.0.0.1"
+placeholder_text = "IP"
+
+[node name="NicknameBox" type="TextEdit" parent="MenuUI/CenterContainer/Background"]
+layout_mode = 0
+offset_left = 15.0
+offset_top = 74.0
+offset_right = 383.0
+offset_bottom = 110.0
+placeholder_text = "Nickname"
+
+[connection signal="pressed" from="MenuUI/CenterContainer/Background/HostButton" to="MenuUI" method="_on_host_button_pressed"]
+[connection signal="pressed" from="MenuUI/CenterContainer/Background/JoinButton" to="MenuUI" method="_on_join_button_pressed"]

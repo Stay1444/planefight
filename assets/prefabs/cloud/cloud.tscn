@@ -1,0 +1,38 @@
+[gd_scene load_steps=3 format=3 uid="uid://ccqelaenlcqn2"]
+
+[ext_resource type="Script" path="res://assets/prefabs/cloud/cloud.gd" id="1_183to"]
+[ext_resource type="Texture2D" uid="uid://dty17ew0nqpwp" path="res://assets/sprites/Clouds V2.png" id="2_2nnpd"]
+
+[node name="Cloud" type="Node2D"]
+script = ExtResource("1_183to")
+clouds = [NodePath("Cloud0"), NodePath("Cloud1"), NodePath("Cloud2"), NodePath("Cloud3"), NodePath("Cloud4"), NodePath("Cloud5")]
+
+[node name="Cloud0" type="Sprite2D" parent="."]
+texture = ExtResource("2_2nnpd")
+region_enabled = true
+region_rect = Rect2(2.94144, 5.57341, 73.2851, 47.2153)
+
+[node name="Cloud1" type="Sprite2D" parent="."]
+texture = ExtResource("2_2nnpd")
+region_enabled = true
+region_rect = Rect2(79.6415, 16.7849, 33.8907, 33.3114)
+
+[node name="Cloud2" type="Sprite2D" parent="."]
+texture = ExtResource("2_2nnpd")
+region_enabled = true
+region_rect = Rect2(3.74946, 49.2273, 42.8703, 34.4701)
+
+[node name="Cloud3" type="Sprite2D" parent="."]
+texture = ExtResource("2_2nnpd")
+region_enabled = true
+region_rect = Rect2(61.3927, 51.255, 61.1192, 36.7874)
+
+[node name="Cloud4" type="Sprite2D" parent="."]
+texture = ExtResource("2_2nnpd")
+region_enabled = true
+region_rect = Rect2(10.9911, 82.5387, 52.1396, 34.7597)
+
+[node name="Cloud5" type="Sprite2D" parent="."]
+texture = ExtResource("2_2nnpd")
+region_enabled = true
+region_rect = Rect2(68.0549, 87.1733, 38.815, 35.3391)

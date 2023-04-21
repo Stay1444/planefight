@@ -1,0 +1,199 @@
+[gd_scene load_steps=28 format=3 uid="uid://c0ocdvawqicsb"]
+
+[ext_resource type="Texture2D" uid="uid://cbikcx7gt367w" path="res://assets/sprites/planes.png" id="1_a4p72"]
+[ext_resource type="Script" path="res://assets/prefabs/plane/PlaneController.gd" id="1_yuxeo"]
+[ext_resource type="PackedScene" uid="uid://df5btie67y04g" path="res://assets/prefabs/bullet/bullet.tscn" id="2_1ugbj"]
+[ext_resource type="Shader" path="res://assets/shaders/outline.gdshader" id="3_3gsaw"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_umi8w"]
+radius = 19.0263
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_dypuu"]
+shader = ExtResource("3_3gsaw")
+shader_parameter/line_color = Color(0.917647, 0, 0.25098, 1)
+shader_parameter/line_thickness = 1.0
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_re263"]
+atlas = ExtResource("1_a4p72")
+region = Rect2(32, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_03xwx"]
+atlas = ExtResource("1_a4p72")
+region = Rect2(0, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_jljdk"]
+atlas = ExtResource("1_a4p72")
+region = Rect2(0, 32, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_6vo7c"]
+atlas = ExtResource("1_a4p72")
+region = Rect2(32, 32, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_6hoqs"]
+atlas = ExtResource("1_a4p72")
+region = Rect2(64, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_gxnrw"]
+atlas = ExtResource("1_a4p72")
+region = Rect2(64, 32, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_fi631"]
+atlas = ExtResource("1_a4p72")
+region = Rect2(96, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_confp"]
+atlas = ExtResource("1_a4p72")
+region = Rect2(96, 32, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_eceru"]
+atlas = ExtResource("1_a4p72")
+region = Rect2(128, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_n83j1"]
+atlas = ExtResource("1_a4p72")
+region = Rect2(128, 32, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_uflvj"]
+atlas = ExtResource("1_a4p72")
+region = Rect2(128, 64, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_wtkir"]
+atlas = ExtResource("1_a4p72")
+region = Rect2(96, 64, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_766j2"]
+atlas = ExtResource("1_a4p72")
+region = Rect2(64, 64, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_5lw0c"]
+atlas = ExtResource("1_a4p72")
+region = Rect2(32, 64, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_whk52"]
+atlas = ExtResource("1_a4p72")
+region = Rect2(0, 64, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_04ik3"]
+atlas = ExtResource("1_a4p72")
+region = Rect2(0, 96, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_w7lxw"]
+atlas = ExtResource("1_a4p72")
+region = Rect2(32, 96, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_tm6a7"]
+atlas = ExtResource("1_a4p72")
+region = Rect2(64, 96, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_y2wnd"]
+atlas = ExtResource("1_a4p72")
+region = Rect2(96, 96, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_slgxm"]
+atlas = ExtResource("1_a4p72")
+region = Rect2(128, 96, 32, 32)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_ovbwj"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_re263")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_03xwx")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_jljdk")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_6vo7c")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_6hoqs")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_gxnrw")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_fi631")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_confp")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_eceru")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_n83j1")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_uflvj")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_wtkir")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_766j2")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_5lw0c")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_whk52")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_04ik3")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_w7lxw")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_tm6a7")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_y2wnd")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_slgxm")
+}],
+"loop": false,
+"name": &"default",
+"speed": 5.0
+}]
+
+[node name="Plane" type="CharacterBody2D" node_paths=PackedStringArray("spriteRenderer", "bulletSpawnPoint", "shootCooldown")]
+collision_layer = 0
+collision_mask = 0
+script = ExtResource("1_yuxeo")
+speed = 500.0
+turnRate = 0.03
+spriteRenderer = NodePath("PlaneSprite")
+bulletSpawnPoint = NodePath("BulletSpawnPoint")
+shootCooldown = NodePath("ShootCooldown")
+bulletPrefab = ExtResource("2_1ugbj")
+AngleUpdateThreshold = 2.0
+OutlineColors = Array[Color]([Color(0, 1, 0, 1), Color(1, 0, 1, 1), Color(1, 0, 0, 1), Color(1, 1, 0, 1)])
+
+[node name="VisibleOnScreenNotifier2D" type="VisibleOnScreenNotifier2D" parent="."]
+
+[node name="Area2D" type="Area2D" parent="."]
+position = Vector2(5, 0)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+shape = SubResource("CircleShape2D_umi8w")
+
+[node name="PlaneSprite" type="AnimatedSprite2D" parent="."]
+material = SubResource("ShaderMaterial_dypuu")
+rotation = 1.5708
+scale = Vector2(2, 2)
+sprite_frames = SubResource("SpriteFrames_ovbwj")
+
+[node name="BulletSpawnPoint" type="Node2D" parent="."]
+position = Vector2(25, 0)
+
+[node name="ShootCooldown" type="Timer" parent="."]
+wait_time = 0.1
+
+[connection signal="screen_entered" from="VisibleOnScreenNotifier2D" to="." method="_on_visible_on_screen_notifier_2d_screen_entered"]
+[connection signal="screen_exited" from="VisibleOnScreenNotifier2D" to="." method="_on_visible_on_screen_notifier_2d_screen_exited"]
+[connection signal="timeout" from="ShootCooldown" to="." method="_on_shoot_cooldown_timeout"]

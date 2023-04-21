@@ -1,0 +1,39 @@
+[gd_scene load_steps=4 format=3 uid="uid://dfcf8qqmjggx8"]
+
+[ext_resource type="Texture2D" uid="uid://borgswaqjof6r" path="res://assets/sprites/ball.png" id="1_v0nu5"]
+[ext_resource type="Script" path="res://assets/particles/plane_explosion.gd" id="2_2xirc"]
+
+[sub_resource type="Gradient" id="Gradient_hwnb2"]
+interpolation_mode = 2
+offsets = PackedFloat32Array(0, 0.865854, 1)
+colors = PackedColorArray(1, 0, 0, 1, 1, 0.870588, 0.137255, 1, 0.916209, 0.860866, 0.817504, 1)
+
+[node name="PlaneExplosion" type="CPUParticles2D"]
+process_mode = 3
+emitting = false
+amount = 3000
+lifetime = 2.0
+one_shot = true
+explosiveness = 1.0
+randomness = 1.0
+lifetime_randomness = 1.0
+fixed_fps = 60
+texture = ExtResource("1_v0nu5")
+emission_shape = 1
+emission_sphere_radius = 0.01
+spread = 180.0
+gravity = Vector2(0, 0)
+initial_velocity_min = 50.0
+initial_velocity_max = 375.76
+scale_amount_min = 0.01
+scale_amount_max = 0.2
+color_ramp = SubResource("Gradient_hwnb2")
+script = ExtResource("2_2xirc")
+
+[node name="Timer" type="Timer" parent="."]
+process_callback = 0
+wait_time = 5.0
+one_shot = true
+autostart = true
+
+[connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]

@@ -1,0 +1,10 @@
+[gd_scene load_steps=4 format=3 uid="uid://b74n0y7wn1o07"]
+
+[ext_resource type="Script" path="res://play.gd" id="1_u044w"]
+[ext_resource type="PackedScene" uid="uid://68d4whnr37gs" path="res://assets/scenes/game/game.tscn" id="2_othl6"]
+[ext_resource type="PackedScene" uid="uid://dr8nthvlkrpsa" path="res://assets/ui/ui.tscn" id="2_qflrc"]
+
+[node name="Play" type="Node2D"]
+script = ExtResource("1_u044w")
+UIScenePrefab = ExtResource("2_qflrc")
+GameScenePrefab = ExtResource("2_othl6")

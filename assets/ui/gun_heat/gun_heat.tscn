@@ -1,0 +1,32 @@
+[gd_scene load_steps=2 format=3 uid="uid://c7yl5l1gm37bi"]
+
+[ext_resource type="Script" path="res://assets/ui/gun_heat/gun_heat.gd" id="1_0m2ss"]
+
+[node name="GunHeat" type="Control"]
+layout_mode = 3
+anchors_preset = 0
+script = ExtResource("1_0m2ss")
+
+[node name="Borders" type="ColorRect" parent="."]
+layout_mode = 0
+offset_left = 16.0
+offset_top = 640.0
+offset_right = 144.0
+offset_bottom = 656.0
+color = Color(0.14902, 0.14902, 0.14902, 1)
+
+[node name="Background" type="ColorRect" parent="."]
+layout_mode = 0
+offset_left = 20.0
+offset_top = 644.0
+offset_right = 140.0
+offset_bottom = 652.0
+color = Color(0.294118, 0.294118, 0.294118, 1)
+
+[node name="Active" type="ColorRect" parent="."]
+layout_mode = 0
+offset_left = 20.0
+offset_top = 644.0
+offset_right = 110.0
+offset_bottom = 652.0
+color = Color(1, 0.243137, 0.0784314, 1)

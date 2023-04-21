@@ -1,0 +1,53 @@
+[gd_scene load_steps=5 format=3 uid="uid://68d4whnr37gs"]
+
+[ext_resource type="Script" path="res://assets/scenes/game/Game.gd" id="1_3wtfw"]
+[ext_resource type="PackedScene" uid="uid://c0um04jxnr8q1" path="res://assets/prefabs/sky/sky.tscn" id="1_apai5"]
+[ext_resource type="PackedScene" uid="uid://c0ocdvawqicsb" path="res://assets/prefabs/plane/plane.tscn" id="2_v723a"]
+[ext_resource type="PackedScene" uid="uid://dfcf8qqmjggx8" path="res://assets/particles/plane_explosion.tscn" id="3_pt87b"]
+
+[node name="Game" type="Node2D"]
+script = ExtResource("1_3wtfw")
+PlanePrefab = ExtResource("2_v723a")
+PlaneExplosionParticles = ExtResource("3_pt87b")
+
+[node name="sky" parent="." node_paths=PackedStringArray("spawnTargetNode") instance=ExtResource("1_apai5")]
+position = Vector2(-72, 4)
+spawnTargetNode = NodePath("..")
+
+[node name="Camera2D" type="Camera2D" parent="."]
+position = Vector2(674, 356)
+zoom = Vector2(0.6, 0.6)
+
+[node name="Planes" type="Node" parent="."]
+
+[node name="SpawnPoints" type="Node" parent="."]
+
+[node name="Node2D" type="Node2D" parent="SpawnPoints"]
+position = Vector2(116, 1118)
+
+[node name="Node2D2" type="Node2D" parent="SpawnPoints"]
+position = Vector2(570, 1090)
+
+[node name="Node2D3" type="Node2D" parent="SpawnPoints"]
+position = Vector2(1148, 1120)
+
+[node name="Node2D4" type="Node2D" parent="SpawnPoints"]
+position = Vector2(1790, 708)
+
+[node name="Node2D5" type="Node2D" parent="SpawnPoints"]
+position = Vector2(1760, 56)
+
+[node name="Node2D6" type="Node2D" parent="SpawnPoints"]
+position = Vector2(1254, -428)
+
+[node name="Node2D7" type="Node2D" parent="SpawnPoints"]
+position = Vector2(698, -398)
+
+[node name="Node2D8" type="Node2D" parent="SpawnPoints"]
+position = Vector2(0, -407)
+
+[node name="Node2D9" type="Node2D" parent="SpawnPoints"]
+position = Vector2(-594, 644)
+
+[node name="Node2D10" type="Node2D" parent="SpawnPoints"]
+position = Vector2(-624, 8)

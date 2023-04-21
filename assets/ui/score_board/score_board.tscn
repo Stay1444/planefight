@@ -1,0 +1,100 @@
+[gd_scene load_steps=5 format=3 uid="uid://cn7derarcma4k"]
+
+[ext_resource type="Script" path="res://assets/ui/score_board/score_board.gd" id="1_ifuh8"]
+[ext_resource type="Texture2D" uid="uid://bort8mppixbnu" path="res://assets/icons/signal.png" id="2_0ygtp"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_c2rv5"]
+bg_color = Color(0.235294, 0.235294, 0.235294, 1)
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_kuwyi"]
+
+[node name="ScoreBoard" type="CenterContainer"]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -200.0
+offset_top = -250.0
+offset_right = 200.0
+offset_bottom = 250.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 6
+size_flags_vertical = 6
+script = ExtResource("1_ifuh8")
+
+[node name="Panel" type="Panel" parent="."]
+clip_contents = true
+custom_minimum_size = Vector2(400, 500)
+layout_mode = 2
+
+[node name="Panel" type="Panel" parent="Panel"]
+layout_mode = 0
+offset_right = 401.0
+offset_bottom = 38.0
+theme_override_styles/panel = SubResource("StyleBoxFlat_c2rv5")
+
+[node name="Columns" type="HBoxContainer" parent="Panel"]
+clip_contents = true
+custom_minimum_size = Vector2(400, 500)
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="NameColumn" type="VBoxContainer" parent="Panel/Columns"]
+clip_contents = true
+custom_minimum_size = Vector2(200, 0)
+layout_mode = 2
+
+[node name="TopLabel" type="CenterContainer" parent="Panel/Columns/NameColumn"]
+custom_minimum_size = Vector2(0, 40)
+layout_mode = 2
+size_flags_horizontal = 4
+
+[node name="Label" type="Label" parent="Panel/Columns/NameColumn/TopLabel"]
+layout_mode = 2
+text = "NAME"
+
+[node name="KillsColumn" type="VBoxContainer" parent="Panel/Columns"]
+clip_contents = true
+custom_minimum_size = Vector2(40, 0)
+layout_mode = 2
+
+[node name="TopLabel" type="CenterContainer" parent="Panel/Columns/KillsColumn"]
+custom_minimum_size = Vector2(0, 40)
+layout_mode = 2
+size_flags_horizontal = 4
+
+[node name="Label" type="Label" parent="Panel/Columns/KillsColumn/TopLabel"]
+layout_mode = 2
+text = "K"
+
+[node name="DeathsColumn" type="VBoxContainer" parent="Panel/Columns"]
+clip_contents = true
+custom_minimum_size = Vector2(40, 0)
+layout_mode = 2
+
+[node name="TopLabel" type="CenterContainer" parent="Panel/Columns/DeathsColumn"]
+custom_minimum_size = Vector2(0, 40)
+layout_mode = 2
+size_flags_horizontal = 4
+
+[node name="Label" type="Label" parent="Panel/Columns/DeathsColumn/TopLabel"]
+layout_mode = 2
+text = "D"
+
+[node name="PingColumn" type="VBoxContainer" parent="Panel/Columns"]
+clip_contents = true
+custom_minimum_size = Vector2(110, 0)
+layout_mode = 2
+
+[node name="TopLabel" type="CenterContainer" parent="Panel/Columns/PingColumn"]
+custom_minimum_size = Vector2(0, 40)
+layout_mode = 2
+size_flags_horizontal = 4
+
+[node name="Signal" type="Sprite2D" parent="Panel/Columns/PingColumn/TopLabel"]
+material = SubResource("ShaderMaterial_kuwyi")
+position = Vector2(0.5, 19.5)
+texture = ExtResource("2_0ygtp")

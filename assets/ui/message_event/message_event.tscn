@@ -1,0 +1,19 @@
+[gd_scene load_steps=2 format=3 uid="uid://b01s5jtbc1l74"]
+
+[ext_resource type="Script" path="res://assets/ui/message_event/message_event.gd" id="1_g4pm6"]
+
+[node name="MessageEvent" type="HBoxContainer" node_paths=PackedStringArray("messageLabel")]
+size_flags_horizontal = 4
+script = ExtResource("1_g4pm6")
+messageLabel = NodePath("Message")
+
+[node name="Message" type="Label" parent="."]
+layout_mode = 2
+text = "HOLA"
+
+[node name="Timer" type="Timer" parent="."]
+wait_time = 5.0
+one_shot = true
+autostart = true
+
+[connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]
